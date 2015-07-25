@@ -2,6 +2,18 @@ var models = require('../models');
 var bluebird = require('bluebird');
 
 
+// {
+//   results: [
+//   {
+//     roomname:
+//     createdAt:
+//     username:
+//   }
+
+//   ]
+// }
+
+
 
 module.exports = {
   messages: {
@@ -11,8 +23,12 @@ module.exports = {
 
   users: {
     // Ditto as above
-    get: function (req, res) {},
-    post: function (req, res) {}
+    get: function (req, res) {
+      res.redirect(301,'/');
+    },
+    post: function (req, res) {
+      models.users.post(req.body.user_name);
+      res.end();
+    }
   }
 };
-
