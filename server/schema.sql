@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `chatrooms`;
 
 CREATE TABLE `chatrooms` (
   `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
-  `chatroom_name` INTEGER NULL DEFAULT NULL,
+  `chatroom_name` VARCHAR(30) NULL DEFAULT NULL UNIQUE,
   PRIMARY KEY (`id`)
 );
 

@@ -8,7 +8,8 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'chat'
+  database : 'chat',
+  multipleStatements: true
 });
 
 module.exports = connection;
