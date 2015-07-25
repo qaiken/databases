@@ -4,7 +4,6 @@ module.exports = {
   messages: {
     get: function (req, res) {
       models.messages.get().then(function(data) {
-        // need to return results property within object
         res.json(data);
         console.log('got messages!');
       });
@@ -13,7 +12,6 @@ module.exports = {
       models.messages.post(req.body);
       res.end();
     } // a function which handles posting a message to the database
-
 
   },
   users: {

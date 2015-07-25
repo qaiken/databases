@@ -24,7 +24,7 @@ $(function() {
       if(_.indexOf(cachedMessages, message.id) == -1) {
         cachedMessages.push(message.id);
       }
-      if( message.chatroom_name === $chatRoomSelector.val() ) {
+      if( message.Chatroom.chatroom_name === $chatRoomSelector.val() ) {
         frag.append(buildMessage(message));
       }
     });
@@ -37,11 +37,11 @@ $(function() {
     var div = $('<div />');
     var friendClass = '';
 
-    if(!data.message_text || !data.user_name) {
+    if(!data.message_text || !data.User.user_name) {
       return;
     }
 
-    userName = _.escape(data.user_name).replace(/ +/g,'');
+    userName = _.escape(data.User.user_name).replace(/ +/g,'');
 
     if(friends[userName]) {
       friendClass = 'friend';
@@ -60,7 +60,7 @@ $(function() {
         break;
       }
       cachedMessages.push(messages[i].id);
-      if( messages[i].chatroom_name === $chatRoomSelector.val() ) {
+      if( messages[i].Chatroom.chatroom_name === $chatRoomSelector.val() ) {
         frag.append(buildMessage(messages[i]));
       }
     }
@@ -70,7 +70,7 @@ $(function() {
 
   function buildChatRooms(messages) {
     _.each(messages, function(message) {
-      var roomname = _.escape(message.chatroom_name);
+      var roomname = _.escape(message.Chatroom.chatroom_name);
       if( _.indexOf(chatRooms,roomname) === -1 ) {
         chatRooms.push(roomname);
         $chatRoomSelector.append('<option value="'+ roomname +'">'+roomname+'</option');

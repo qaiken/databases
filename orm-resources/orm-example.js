@@ -22,7 +22,7 @@ var Message = sequelize.define('Message' {
 
 /* .sync() makes Sequelize create the database table for us if it doesn't
  *  exist already: */
-User.sync().success(function() {
+User.sync().then(function() {
   /* This callback function is called once sync succeeds. */
 
   // now instantiate an object and save it:
