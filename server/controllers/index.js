@@ -1,13 +1,11 @@
 var models = require('../models');
-var bluebird = require('bluebird');
-
 
 module.exports = {
   messages: {
     get: function (req, res) {
-      models.messages.get(function(data) {
+      models.messages.get().then(function(data) {
         // need to return results property within object
-        res.end(JSON.stringify(data));
+        res.json(data);
         console.log('got messages!');
       });
     }, // a function which handles a get request for all messages
@@ -21,8 +19,8 @@ module.exports = {
   users: {
     // Ditto as above
     get: function (req, res) {
-      models.users.get(function(data) {
-        res.end(JSON.stringify(data));
+      models.users.get().then(function(data) {
+        res.json(data);
       });
     },
     post: function (req, res) {

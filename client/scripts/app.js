@@ -21,10 +21,10 @@ $(function() {
     $messageContainer.html('');
 
     _.each(messages, function(message) {
-      if(_.indexOf(cachedMessages, message.createdAt) == -1) {
-        cachedMessages.push(message.createdAt);
+      if(_.indexOf(cachedMessages, message.id) == -1) {
+        cachedMessages.push(message.id);
       }
-      if( message.roomname === $chatRoomSelector.val() ) {
+      if( message.chatroom_name === $chatRoomSelector.val() ) {
         frag.append(buildMessage(message));
       }
     });
@@ -37,18 +37,18 @@ $(function() {
     var div = $('<div />');
     var friendClass = '';
 
-    if(!data.text || !data.username) {
+    if(!data.message_text || !data.user_name) {
       return;
     }
 
-    userName = _.escape(data.username).replace(/ +/g,'');
+    userName = _.escape(data.user_name).replace(/ +/g,'');
 
     if(friends[userName]) {
       friendClass = 'friend';
     }
 
     div.append('<p class="user-name '+friendClass+'" data-username="'+userName+'">User:<span>'+userName+'</span></p>');
-    div.append('<p>'+ _.escape(data.text) +'</p>');
+    div.append('<p>'+ _.escape(data.message_text) +'</p>');
     return div;
   }
 
@@ -56,11 +56,11 @@ $(function() {
     var frag = $(document.createDocumentFragment());
 
     for(var i = 0; i < messages.length; i++) {
-      if(_.indexOf(cachedMessages, messages[i].createdAt) > -1) {
+      if(_.indexOf(cachedMessages, messages[i].id) > -1) {
         break;
       }
-      cachedMessages.push(messages[i].createdAt);
-      if( messages[i].roomname === $chatRoomSelector.val() ) {
+      cachedMessages.push(messages[i].id);
+      if( messages[i].chatroom_name === $chatRoomSelector.val() ) {
         frag.append(buildMessage(messages[i]));
       }
     }
@@ -70,7 +70,7 @@ $(function() {
 
   function buildChatRooms(messages) {
     _.each(messages, function(message) {
-      var roomname = _.escape(message.roomname);
+      var roomname = _.escape(message.chatroom_name);
       if( _.indexOf(chatRooms,roomname) === -1 ) {
         chatRooms.push(roomname);
         $chatRoomSelector.append('<option value="'+ roomname +'">'+roomname+'</option');
@@ -95,9 +95,9 @@ $(function() {
     }
 
     var message = {
-      username: userName,
-      text: text,
-      roomname: roomName
+      user_name: userName,
+      message_text: text,
+      chatroom_name: roomName
     };
 
     $message.val('');
@@ -174,15 +174,15 @@ $(function() {
 
   function displayMessages(data) {
 
-    buildChatRooms(data.results);
+    buildChatRooms(data);
 
     if(!cachedMessages.length) {
-      initFeed(data.results);
+      initFeed(data);
       return;
     }
 
-    if( JSON.stringify(data.results[0]) !== JSON.stringify(cachedMessages[0]) ) {
-      appendNewMessages(data.results);
+    if( JSON.stringify(data[0]) !== JSON.stringify(cachedMessages[0]) ) {
+      appendNewMessages(data);
     }
 
   };
